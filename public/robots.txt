@@ -1,0 +1,20 @@
+# robots.txt for OneTracker
+# https://www.onetracker.ai/
+
+User-agent: *
+Allow: /
+
+# Block sensitive or internal routes
+Disallow: /admin/
+Disallow: /dashboard/
+Disallow: /api/
+Disallow: /auth/
+Disallow: /internal/
+Disallow: /private/
+
+# Allow important assets
+Allow: /assets/
+Allow: /images/
+
+# Sitemap location
+Sitemap: https://www.onetracker.ai/sitemap.xml

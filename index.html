@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Basic -->
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>OneTracker | AI-Powered Logistics & Intelligent Fulfillment Platform</title>
+
+    <!-- Primary SEO -->
+    <meta name="description" content="OneTracker is an AI-powered logistics and fulfillment intelligence platform offering real-time tracking, route optimization, fleet analytics, and predictive delivery insights for modern enterprises." />
+    <meta name="keywords" content="Logistics Platform, Fleet Management Software, Route Optimization, Real-time Tracking, Delivery Analytics, Supply Chain AI, Fulfillment Automation, Enterprise Logistics" />
+    <meta name="author" content="OneTracker Technologies Pvt. Ltd." />
+    <meta name="robots" content="index, follow" />
+    <link rel="canonical" href="https://www.onetracker.ai/" />
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Open Graph (Facebook / LinkedIn) -->
+    <meta property="og:title" content="OneTracker | AI-Powered Logistics Intelligence Platform" />
+    <meta property="og:description" content="Transform your delivery operations with AI-driven route optimization, live fleet tracking, and predictive logistics analytics." />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="https://www.onetracker.ai/" />
+    <meta property="og:image" content="https://www.onetracker.ai/og-image.png" />
+    <meta property="og:site_name" content="OneTracker" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="OneTracker | Intelligent Logistics Platform" />
+    <meta name="twitter:description" content="AI-powered route optimization and real-time fleet intelligence for modern enterprises." />
+    <meta name="twitter:image" content="https://www.onetracker.ai/og-image.png" />
+    <meta name="twitter:site" content="@OneTrackerAI" />
+
+    <!-- Performance -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Font -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+
+    <!-- Theme Initialization (Prevent FOUC) -->
+    <script>
+      (function () {
+        const theme = localStorage.getItem("theme");
+        const root = document.documentElement;
+        
+        // Remove any existing theme classes
+        root.classList.remove('light', 'dark');
+        
+        if (theme === "dark" || theme === "light") {
+          root.classList.add(theme);
+        } else {
+          // Default to system preference or dark if not available
+          const systemTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+          root.classList.add(systemTheme);
+        }
+      })();
+    </script>
+
+    <!-- Structured Data (Enterprise SaaS) -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "SoftwareApplication",
+        "name": "OneTracker",
+        "applicationCategory": "BusinessApplication",
+        "operatingSystem": "Web",
+        "description": "AI-powered logistics and fulfillment intelligence platform offering route optimization, fleet monitoring, and predictive analytics.",
+        "url": "https://www.onetracker.ai/",
+        "creator": {
+          "@type": "Organization",
+          "name": "OneTracker Technologies"
+        }
+      }
+    </script>
+
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
