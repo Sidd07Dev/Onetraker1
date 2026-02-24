@@ -1,7 +1,9 @@
-import { useState } from "react"
-import { motion, AnimatePresence } from "framer-motion"
-import { Button } from "@/components/ui/button"
-import { BookDemoModal } from "@/components/BookDemoModal"
+import {
+  motion,
+  useScroll,
+  useTransform,
+} from "framer-motion"
+import { useState, useRef } from "react"
 import {
   Smartphone,
   Camera,
@@ -12,165 +14,100 @@ import {
   Wifi,
   Battery,
   ArrowRight,
-  Download,
+   Download
 } from "lucide-react"
 
+import { Button } from "@/components/ui/button"
+import { BookDemoModal } from "@/components/BookDemoModal"
+import { ProductMockup } from "@/components/ProductMockup"
+
 /* -------------------------------------------------------------------------- */
-/*                                   DATA                                     */
+/*                              MOBILE FEATURES                               */
 /* -------------------------------------------------------------------------- */
 
-const DRIVER_FEATURES = [
+const mobileFeatures = [
   {
-    icon: Navigation,
-    title: "Turn-by-Turn Navigation",
-    description: "Integrated GPS with optimized routes",
+    step: "01",
+    category: "Driver App Experience",
+    description:
+      "Empower drivers with optimized navigation, offline capabilities, and real-time task management built for high-performance field operations.",
     image: "/images/driver-nav.png",
+    items: [
+      {
+        icon: Navigation,
+        title: "Turn-by-Turn Navigation",
+        description: "Integrated GPS with optimized routes.",
+      },
+      {
+        icon: QrCode,
+        title: "Barcode Scanning",
+        description: "Instant package verification and validation.",
+      },
+      {
+        icon: Camera,
+        title: "Photo & Signature POD",
+        description: "Capture proof of delivery with secure uploads.",
+      },
+      {
+        icon: Wifi,
+        title: "Offline Mode",
+        description: "Continue operations even without internet.",
+      },
+    ],
   },
   {
-    icon: QrCode,
-    title: "Barcode Scanning",
-    description: "Quick package verification",
-    image: "/images/driver-scan.png",
-  },
-  {
-    icon: Camera,
-    title: "Photo Capture",
-    description: "POD photos and signatures",
-    image: "/images/driver-pod.png",
-  },
-  {
-    icon: Wifi,
-    title: "Offline Mode",
-    description: "Works without internet connection",
-    image: "/images/driver-offline.png",
-  },
-]
-
-const CUSTOMER_FEATURES = [
-  {
-    icon: Bell,
-    title: "Live Notifications",
-    description: "Real-time delivery updates",
-    image: "/images/customer-alerts.png",
-  },
-  {
-    icon: Navigation,
-    title: "Live Tracking",
-    description: "Watch driver on the map",
+    step: "02",
+    category: "Customer App Experience",
+    description:
+      "Deliver a seamless customer journey with live tracking, proactive notifications, and direct communication channels.",
     image: "/images/customer-tracking.png",
-  },
-  {
-    icon: MessageSquare,
-    title: "In-App Chat",
-    description: "Direct driver communication",
-    image: "/images/customer-chat.png",
-  },
-  {
-    icon: Battery,
-    title: "ETA Updates",
-    description: "Accurate arrival predictions",
-    image: "/images/customer-eta.png",
+    items: [
+      {
+        icon: Bell,
+        title: "Live Notifications",
+        description: "Real-time dispatch and delivery alerts.",
+      },
+      {
+        icon: Navigation,
+        title: "Live Tracking",
+        description: "Watch deliveries move in real-time.",
+      },
+      {
+        icon: MessageSquare,
+        title: "In-App Chat",
+        description: "Direct communication with drivers.",
+      },
+      {
+        icon: Battery,
+        title: "Accurate ETA",
+        description: "Predictive arrival time updates.",
+      },
+    ],
   },
 ]
 
 /* -------------------------------------------------------------------------- */
-/*                                  HELPERS                                   */
-/* -------------------------------------------------------------------------- */
-
-const chunkArray = (arr, size) =>
-  Array.from({ length: Math.ceil(arr.length / size) }, (_, i) =>
-    arr.slice(i * size, i * size + size)
-  )
-
-/* -------------------------------------------------------------------------- */
-/*                            FEATURE IMAGE CAROUSEL                           */
-/* -------------------------------------------------------------------------- */
-
-const FeatureCarousel = ({ images }) => {
-  const [index, setIndex] = useState(0)
-
-  return (
-    <div className="relative w-full max-w-[420px] h-[360px] mx-auto">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={index}
-          initial={{ opacity: 0, x: 40, scale: 0.96 }}
-          animate={{ opacity: 1, x: 0, scale: 1 }}
-          exit={{ opacity: 0, x: -40, scale: 0.96 }}
-          transition={{ duration: 0.4 }}
-          className="absolute inset-0 rounded-2xl overflow-hidden shadow-2xl"
-        >
-          <img
-            src={images[index]}
-            alt="Feature preview"
-            className="w-full h-full object-cover"
-          />
-        </motion.div>
-      </AnimatePresence>
-
-      <button
-        onClick={() => setIndex((i) => (i - 1 + images.length) % images.length)}
-        className="absolute left-3 top-1/2 -translate-y-1/2 glass-card px-3 py-2"
-      >
-        ←
-      </button>
-
-      <button
-        onClick={() => setIndex((i) => (i + 1) % images.length)}
-        className="absolute right-3 top-1/2 -translate-y-1/2 glass-card px-3 py-2"
-      >
-        →
-      </button>
-    </div>
-  )
-}
-
-/* -------------------------------------------------------------------------- */
-/*                               FEATURE CARDS                                */
-/* -------------------------------------------------------------------------- */
-
-const FeatureCard = ({ feature }) => {
-  const Icon = feature.icon
-
-  return (
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      className="glass-card p-6 hover:border-primary/30 transition-colors"
-    >
-      <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-        <Icon className="w-6 h-6 text-primary" />
-      </div>
-      <h3 className="font-semibold mb-2">{feature.title}</h3>
-      <p className="text-sm text-muted-foreground">{feature.description}</p>
-    </motion.div>
-  )
-}
-
-const FeatureGrid = ({ items }) => (
-  <div className="grid gap-6">
-    <FeatureCard feature={items[0]} />
-    <div className="grid sm:grid-cols-2 gap-6">
-      <FeatureCard feature={items[1]} />
-      <FeatureCard feature={items[2]} />
-    </div>
-    {items[3] && <FeatureCard feature={items[3]} />}
-  </div>
-)
-
-/* -------------------------------------------------------------------------- */
-/*                               MAIN COMPONENT                               */
+/*                              MAIN COMPONENT                                */
 /* -------------------------------------------------------------------------- */
 
 export default function MobileApp() {
   const [demoOpen, setDemoOpen] = useState(false)
+  const containerRef = useRef(null)
+
+  const totalSteps = mobileFeatures.length
+  const dynamicHeight = `${totalSteps * 100}vh`
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  })
 
   return (
-    <div className="min-h-screen pt-20">
+    <>
+      <div className="pt-20">
 
-      {/* ================= HERO (UNCHANGED) ================= */}
-            <section className="relative py-24 overflow-hidden">
+        {/* ================= HERO ================= */}
+         <section className="relative py-24 overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 via-transparent to-primary/5" />
         
         <div className="section-container relative z-10">
@@ -250,67 +187,111 @@ export default function MobileApp() {
         </div>
       </section>
       
-      {/* ================= DRIVER APP ================= */}
-      <section className="py-24 bg-card/50">
-        <div className="section-container space-y-32">
-          {chunkArray(DRIVER_FEATURES, 4).map((group, index) => (
-            <div
-              key={index}
-              className="grid lg:grid-cols-2 gap-16 items-center"
-            >
-              <div className="hidden lg:block">
-                <FeatureCarousel images={group.map((f) => f.image)} />
-              </div>
-              <FeatureGrid items={group} />
-            </div>
-          ))}
-        </div>
-      </section>
 
-      {/* ================= CUSTOMER APP ================= */}
-      <section className="py-24">
-        <div className="section-container space-y-32">
-          {chunkArray(CUSTOMER_FEATURES, 4).map((group, index) => (
-            <div
-              key={index}
-              className="grid lg:grid-cols-2 gap-16 items-center"
-            >
-             
-              <div className={`${index % 2 ? "lg:order-1" : ""}`}>
-                <FeatureGrid items={group} />
-              </div>
-               <div className={`${index % 2 ? "lg:order-2" : ""}`}>
-                <FeatureCarousel images={group.map((f) => f.image)} />
-              </div>
-            </div>
-          ))}
-        </div>
-      </section>
+        {/* ================= CINEMATIC MOBILE FEATURES ================= */}
+        <section
+          ref={containerRef}
+          className="relative"
+          style={{ height: dynamicHeight }}
+        >
+          <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
 
-      {/* ================= CTA ================= */}
-      <section className="py-24">
-        <div className="section-container">
-          <div className="glass-card relative max-w-4xl mx-auto overflow-hidden rounded-2xl">
-            <img
-              src="/cta.jpg"
-              alt="Delivery Operations"
-              className="absolute inset-0 w-full h-full object-cover opacity-90"
+            {/* Animated Background */}
+            <motion.div
+              className="absolute inset-0 -z-10"
+              style={{
+                background: useTransform(
+                  scrollYProgress,
+                  [0, 1],
+                  [
+                    "radial-gradient(circle at center, hsl(var(--secondary)/0.12), transparent 70%)",
+                    "radial-gradient(circle at center, hsl(var(--primary)/0.12), transparent 70%)",
+                  ]
+                ),
+              }}
             />
-            <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]" />
-            <div className="relative z-10 text-center px-8 py-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-                Ready to Transform Your Delivery Operations?
-              </h2>
-              <Button size="lg" onClick={() => setDemoOpen(true)}>
-                Book a Demo
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
-            </div>
+
+            {mobileFeatures.map((section, index) => {
+              const start = index / totalSteps
+              const end = (index + 1) / totalSteps
+
+              const opacity = useTransform(
+                scrollYProgress,
+                [start, start + 0.1, end - 0.1, end],
+                [0, 1, 1, 0]
+              )
+
+              const y = useTransform(
+                scrollYProgress,
+                [start, end],
+                [60, 0]
+              )
+
+              return (
+                <motion.div
+                  key={section.category}
+                  style={{ opacity, y }}
+                  className="absolute w-full max-w-7xl px-8 grid lg:grid-cols-2 gap-20 items-center"
+                >
+                  {/* LEFT CONTENT */}
+                  <div>
+                    <div className="text-sm text-primary font-semibold mb-4">
+                      Step {section.step}
+                    </div>
+
+                    <h2 className="text-4xl font-bold mb-6">
+                      {section.category}
+                    </h2>
+
+                    <p className="text-lg text-muted-foreground mb-10">
+                      {section.description}
+                    </p>
+
+                    <div className="grid sm:grid-cols-2 gap-6">
+                      {section.items.map((feature) => (
+                        <div key={feature.title} className="flex gap-4">
+                          <div className="w-10 h-10 bg-primary/10 text-primary flex items-center justify-center rounded-lg">
+                            <feature.icon className="w-5 h-5" />
+                          </div>
+                          <div>
+                            <h3 className="font-semibold">
+                              {feature.title}
+                            </h3>
+                            <p className="text-sm text-muted-foreground">
+                              {feature.description}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* RIGHT VISUAL */}
+                  <ProductMockup
+                    src={section.image}
+                    alt={section.category}
+                  />
+                </motion.div>
+              )
+            })}
           </div>
-        </div>
-      </section>
+        </section>
+
+        {/* ================= FINAL CTA ================= */}
+        <section className="py-24 text-center bg-gradient-to-r from-secondary/10 to-background">
+          <h2 className="text-3xl font-bold mb-6">
+            Empower Drivers & Delight Customers with Mobile Excellence
+          </h2>
+
+          <Button size="lg" onClick={() => setDemoOpen(true)}>
+            Schedule Mobile App Demo
+            <ArrowRight className="ml-2 w-5 h-5" />
+          </Button>
+        </section>
+
+      </div>
 
       <BookDemoModal open={demoOpen} onOpenChange={setDemoOpen} />
-    </div>
+    </>
   )
 }

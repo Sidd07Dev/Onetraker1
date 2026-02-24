@@ -24,7 +24,7 @@ import JobDetail from "./pages/JobDetail";
 import Resources from "./pages/Resources";
 import Trust from "./pages/Trust";
 import Contact from "./pages/Contact";
-import Login from "./pages/Login";
+
 import NotFound from "./pages/NotFound";
 
 // Platform Pages
@@ -101,7 +101,7 @@ const App = () => {
                 <Route path="/contact" element={<Contact />} />
                 <Route path="*" element={<NotFound />} />
               </Route>
-              <Route path="/login" element={<Login />} />
+             
             </Routes>
             
             {/* AI Chat Widget - Lazy loaded after 5s or on interaction */}

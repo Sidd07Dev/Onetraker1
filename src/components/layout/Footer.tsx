@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import { 
   Twitter, 
   Linkedin, 
-  Github, 
+  Facebook, 
   Youtube,
   Mail,
   MapPin,
@@ -43,10 +43,10 @@ const footerLinks = {
 };
 
 const socialLinks = [
-  { icon: Twitter, href: 'https://twitter.com/onetracker', label: 'Twitter' },
-  { icon: Linkedin, href: 'https://linkedin.com/company/onetracker', label: 'LinkedIn' },
-  { icon: Github, href: 'https://github.com/onetracker', label: 'GitHub' },
-  { icon: Youtube, href: 'https://youtube.com/@onetracker', label: 'YouTube' },
+  { icon: Twitter, href: 'https://twitter.com/onetrackerai', label: 'Twitter' },
+  { icon: Linkedin, href: 'https://linkedin.com/company/onetrackerai', label: 'LinkedIn' },
+   { icon: Facebook, href: 'https://facebook.com/OneTrackerAI', label: 'Facebook' },
+  { icon: Youtube, href: 'https://youtube.com/@onetrackerai', label: 'YouTube' },
 ];
 
 export function Footer() {

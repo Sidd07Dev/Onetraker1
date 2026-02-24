@@ -1,10 +1,6 @@
 import { motion } from 'framer-motion';
 
-/**
- * Lightweight mobile-only hero visual
- * Uses SVG-based isometric warehouse illustration with subtle animations
- * No WebGL / Three.js - pure CSS/SVG for performance
- */
+
 export function MobileHeroVisual() {
   return (
     <div className="absolute inset-0 z-0 overflow-hidden">

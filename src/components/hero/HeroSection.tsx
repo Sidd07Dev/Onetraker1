@@ -46,7 +46,7 @@ export function HeroSection() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 0.5 }}
-            className="relative min-h-[90vh] xl:min-h-screen overflow-hidden"
+            className="relative min-h-[100vh] xl:min-h-screen overflow-hidden"
           >
             {/* Background */}
             <div className="absolute inset-0 hero-bg" />
@@ -66,23 +66,27 @@ export function HeroSection() {
               {/* LEFT SIDE */}
               <div className="flex-1 min-w-0 max-w-[680px] flex flex-col items-center lg:items-start text-center lg:text-left">
 
-                <motion.h1
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.8, delay: 0.15 }}
-                  className="text-4xl sm:text-5xl lg:text-6xl xl:text-[72px] 2xl:text-[80px] font-bold leading-[1.1] mb-6"
-                >
-                  The{" "}
-                  <span className="text-gradient-primary">
-                    Intelligent
-                  </span>
-                  <br className="hidden sm:block" />
-                  Fulfillment Core
-                  <br />
-                  <span className="text-gradient-secondary">
-                    for Modern Logistics
-                  </span>
-                </motion.h1>
+               <motion.h1
+  initial={{ opacity: 0, y: 30 }}
+  animate={{ opacity: 1, y: 0 }}
+  transition={{ duration: 0.8, delay: 0.15 }}
+  className="
+    text-center lg:text-left
+    text-4xl sm:text-5xl lg:text-6xl xl:text-[72px] 2xl:text-[80px]
+    font-bold
+    leading-tight
+    mb-6
+  "
+>
+  The{" "}
+  <span className="text-gradient-primary">
+    Intelligent
+  </span>{" "}
+  Fulfillment Core{" "}
+  <span className="text-gradient-secondary">
+    for Modern Logistics
+  </span>
+</motion.h1>
 
                 <motion.p
                   initial={{ opacity: 0, y: 30 }}
