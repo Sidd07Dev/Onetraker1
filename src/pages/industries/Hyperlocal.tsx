@@ -45,9 +45,9 @@ export default function Hyperlocal() {
   const [demoOpen, setDemoOpen] = useState(false);
 
   return (
-    <div className="min-h-screen pt-20">
+    <div className="min-h-screen ">
       {/* Hero */}
-      <section className="relative py-24 overflow-hidden">
+      <section className="relative  overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 via-transparent to-primary/5" />
         
         <div className="section-container relative z-10">

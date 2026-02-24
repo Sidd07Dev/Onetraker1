@@ -1,331 +1,290 @@
-import { motion } from 'framer-motion';
-import { Button } from '@/components/ui/button';
-import { 
-  Package,Route, Truck, Globe, Zap, BarChart3, Settings, 
-  ArrowRight, CheckCircle2, Building
-} from 'lucide-react';
+import {
+  motion,
+  useScroll,
+  useTransform,
+} from "framer-motion"
+import { useState, useRef } from "react"
+import {
+  Globe,
+  Zap,
+  BarChart3,
+  Settings,
+  Package,
+  Truck,
+  ArrowRight,
+  CheckCircle2,
+} from "lucide-react"
+
 import { OptimizedImage } from "@/components/ui/OptimizedImage"
-import { Link } from "react-router-dom"
-import { useState } from 'react';
-import { BookDemoModal } from '@/components/BookDemoModal';
+import { ProductMockup } from "@/components/ProductMockup"
+import { BookDemoModal } from "@/components/BookDemoModal"
+import { Button } from "@/components/ui/button"
 
-const carriers = [
-  'FedEx', 'UPS', 'DHL', 'USPS', 'Blue Dart', 'Delhivery', 
-  'Ecom Express', 'Shadowfax', 'Dunzo', 'Porter'
-];
+/* -------------------------------------------------------------------------- */
+/*                          MULTICARRIER FEATURES                             */
+/* -------------------------------------------------------------------------- */
 
-
-
-
-const features = [
+const multicarrierFeatures = [
   {
-    icon: Globe,
-    title: 'Unified API',
-    description: 'Single integration for all carriers. No more managing multiple APIs.'
+    step: "01",
+    category: "Unified Multi-Carrier API Integration",
+    description:
+      "Integrate with 100+ domestic and international carriers through a single enterprise-grade API. Eliminate complex integrations and streamline shipping operations globally.",
+    image: "/multi-carrier.jpg",
+    items: [
+      {
+        icon: Globe,
+        title: "Single Unified API",
+        description:
+          "One integration to access FedEx, UPS, DHL, Blue Dart, Delhivery and 100+ carriers worldwide.",
+      },
+      {
+        icon: Settings,
+        title: "Centralized Label Generation",
+        description:
+          "Automatically generate shipping labels for any connected carrier from one dashboard.",
+      },
+      {
+        icon: Package,
+        title: "Bulk Shipment Processing",
+        description:
+          "Create, print, and manage thousands of shipments in seconds.",
+      },
+    ],
   },
   {
-    icon: Zap,
-    title: 'Smart Carrier Selection',
-    description: 'AI recommends the best carrier based on cost, speed, and reliability.'
+    step: "02",
+    category: "Smart Carrier Selection Engine",
+    description:
+      "Automatically select the most cost-effective and reliable carrier using AI-based decision rules, delivery SLAs, and real-time rate comparison.",
+    image: "/Carrier-Prioritization.png",
+    items: [
+      {
+        icon: Zap,
+        title: "AI-Based Carrier Allocation",
+        description:
+          "Choose carriers dynamically based on cost, performance, and delivery speed.",
+      },
+      {
+        icon: BarChart3,
+        title: "Real-Time Rate Comparison",
+        description:
+          "Compare live shipping rates across all integrated carriers instantly.",
+      },
+      {
+        icon: Truck,
+        title: "Automated Shipping Rules",
+        description:
+          "Set intelligent rules for weight, zone, COD, and delivery timelines.",
+      },
+    ],
   },
   {
-    icon: BarChart3,
-    title: 'Rate Comparison',
-    description: 'Compare real-time rates across carriers instantly.'
+    step: "03",
+    category: "Centralized Tracking & Visibility",
+    description:
+      "Track shipments across all carriers from a single dashboard with unified tracking IDs and real-time delivery updates.",
+    image: "/multi-carrier.jpg",
+    items: [
+      {
+        icon: Package,
+        title: "Unified Tracking Dashboard",
+        description:
+          "Monitor all shipments across carriers in one place.",
+      },
+      {
+        icon: BarChart3,
+        title: "Performance Analytics",
+        description:
+          "Analyze carrier SLA performance and delivery efficiency.",
+      },
+      {
+        icon: CheckCircle2,
+        title: "Delivery Success Monitoring",
+        description:
+          "Track RTO rates, delays, and failed deliveries in real-time.",
+      },
+    ],
   },
-  {
-    icon: Settings,
-    title: 'Automated Rules',
-    description: 'Set up rules for automatic carrier assignment based on your criteria.'
-  },
-];
-const featureSections = [
-  {
-    image: "https://onetracker.ai/wp-content/uploads/2024/08/multi-carrier-.png",
-    features: features.slice(0, 2),
-  },
-  {
-    image: "https://onetracker.ai/wp-content/uploads/2024/09/Carrier-Prioritization.png",
-    features: features.slice(2, 4),
-  },
-];
+]
 
 export default function Multicarrier() {
-  const [demoOpen, setDemoOpen] = useState(false);
+  const [demoOpen, setDemoOpen] = useState(false)
+  const containerRef = useRef(null)
+
+  const totalSteps = multicarrierFeatures.length
+  const dynamicHeight = `${totalSteps * 100}vh`
+
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  })
 
   return (
-    <div className="min-h-screen pt-20">
-      {/* Hero */}
-    
-        <section className="relative py-24 overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
-        <div className="absolute top-1/4 right-0 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
-        <div className="section-container relative z-10"> <div className="grid lg:grid-cols-2 gap-12 items-center">
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} >
-             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 border border-secondary/20 mb-6">
-              <Package className="w-4 h-4 text-secondary" />
-              <span className="text-sm font-medium text-secondary">Multicarrier</span>
-            </div>
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6"> {' '} <span className="text-gradient-primary"> Multicarrier Shipping</span> {' '}Platform </h1>
-            <p className="text-xl text-muted-foreground mb-8"> Connect to 100+ carriers through a single integration. Compare rates, print labels, and track shipments across all carriers from one dashboard. </p>
-            <div className="flex flex-wrap gap-4">
-              <Button size="lg" onClick={() => setDemoOpen(true)}> Book a Demo <ArrowRight className="ml-2 w-5 h-5" /> </Button>
-             
-            </div>
-          </motion.div>
-          <motion.div initial={{ opacity: 0, x: 20 }} animate={{ opacity: 1, x: 0 }} transition={{ delay: 0.2 }} className="relative" >
-            <div className="glass-card p-2 rounded-2xl overflow-hidden">
-              <OptimizedImage src="/multi-carrier.jpg" alt="Delivery management dashboard" aspectRatio="video" className="rounded-xl" /> </div> {/* Floating stats */}
-            
-          </motion.div>
-        </div>
-        </div>
-      </section>
+    <>
+      <div >
 
-      {/* Carrier Logos */}
-      <section className="py-16 bg-card/50">
-        <div className="section-container">
-          <motion.div
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            viewport={{ once: true }}
-            className="text-center mb-8"
-          >
-            <p className="text-muted-foreground">Integrated with leading carriers worldwide</p>
-          </motion.div>
-          
-          <div className="flex flex-wrap justify-center gap-4">
-            {carriers.map((carrier, index) => (
-              <motion.div
-                key={carrier}
-                initial={{ opacity: 0, scale: 0.9 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.05 }}
-                className="px-6 py-3 bg-background rounded-lg border border-border text-sm font-medium text-muted-foreground"
-              >
-                {carrier}
-              </motion.div>
-            ))}
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.5 }}
-              className="px-6 py-3 bg-primary/10 rounded-lg border border-primary/20 text-sm font-medium text-primary"
-            >
-              + 90 more
-            </motion.div>
-          </div>
-        </div>
-      </section>
+        {/* ================= HERO ================= */}
+        <section className="relative  overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
+          <div className="section-container relative z-10">
 
-      {/* Features */}
-      {/* <section className="py-24">
-        <div className="section-container">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center mb-16"
-          >
-            <h2 className="text-3xl md:text-4xl font-bold mb-4">
-              Simplify Your Shipping Operations
-            </h2>
-            <p className="text-muted-foreground max-w-2xl mx-auto">
-              One platform to manage all your shipping needs across multiple carriers.
-            </p>
-          </motion.div>
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
 
-          <div className="grid md:grid-cols-2 gap-6 max-w-4xl mx-auto">
-            {features.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="glass-card p-6 hover:border-primary/30 transition-colors"
-              >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center mb-4">
-                  <feature.icon className="w-6 h-6 text-primary" />
+              <div>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-secondary/10 border border-secondary/20 mb-6">
+                  <Package className="w-4 h-4 text-secondary" />
+                  <span className="text-sm font-medium text-secondary">
+                    Multi-Carrier Shipping Platform
+                  </span>
                 </div>
-                <h3 className="text-lg font-semibold mb-2">{feature.title}</h3>
-                <p className="text-muted-foreground">{feature.description}</p>
-              </motion.div>
-            ))}
+
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-primary">
+                  Enterprise{' '}
+                  <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
+                    Multicarrier Shipping Software
+                  </span>{' '}
+                  for Global Logistics
+                </h1>
+
+                <p className="text-xl text-muted-foreground mb-8">
+                  Connect, compare, automate, and track shipments across
+                  100+ carriers through a single intelligent shipping platform.
+                </p>
+
+                <Button size="lg" onClick={() => setDemoOpen(true)}>
+                  Book a Demo
+                  <ArrowRight className="ml-2 w-5 h-5" />
+                </Button>
+              </div>
+
+              <div>
+                <div className="glass-card p-2 rounded-2xl overflow-hidden">
+                  <OptimizedImage
+                    src="/multi-carrier.jpg"
+                    alt="Enterprise multicarrier shipping dashboard"
+                    aspectRatio="video"
+                    className="rounded-xl"
+                  />
+                </div>
+              </div>
+
+            </div>
           </div>
-        </div>
-      </section> */}
-      {/* Features */}
-<section className="py-24">
-  <div className="section-container space-y-28">
+        </section>
 
-    {/* Section Heading */}
-    <motion.div
-      initial={{ opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      className="text-center mb-16"
-    >
-      <h2 className="text-3xl md:text-4xl font-bold mb-4">
-        Simplify Your Shipping Operations
-      </h2>
-      <p className="text-muted-foreground max-w-2xl mx-auto">
-        One platform to manage all your shipping needs across multiple carriers.
-      </p>
-    </motion.div>
+        {/* ================= SEO CONTENT BLOCK ================= */}
+        <section className="max-w-5xl mx-auto px-6 py-20 text-center">
+          <h2 className="text-3xl font-bold mb-6">
+            Centralized Multi-Carrier Shipping & Logistics Automation Platform
+          </h2>
 
-    {/* Zig-Zag Sections */}
-    {featureSections.map((section, sectionIndex) => {
-      const reverse = sectionIndex % 2 !== 0;
+          <p className="text-muted-foreground leading-relaxed">
+            Designed for eCommerce brands, 3PL providers, marketplaces,
+            and enterprise supply chains, our multicarrier platform enables
+            cost optimization, smart carrier routing, automated label
+            generation, and real-time shipment visibility — all from a
+            single operational command center.
+          </p>
+        </section>
 
-      return (
-        <div
-          key={sectionIndex}
-          className="grid lg:grid-cols-2 gap-12 items-center"
+        {/* ================= CINEMATIC FEATURES ================= */}
+        <section
+          ref={containerRef}
+          className="relative"
+          style={{ height: dynamicHeight }}
         >
-
-          {/* FEATURES */}
-          <div className={`${reverse ? 'lg:order-2' : 'lg:order-1'} space-y-6`}>
-            {section.features.map((feature, index) => (
-              <motion.div
-                key={feature.title}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
-                className="glass-card p-6 flex gap-4 hover:border-primary/30 transition-colors"
-              >
-                <div className="w-12 h-12 rounded-xl bg-primary/10 flex items-center justify-center flex-shrink-0">
-                  <feature.icon className="w-6 h-6 text-primary" />
-                </div>
-                <div>
-                  <h3 className="text-lg font-semibold mb-2">
-                    {feature.title}
-                  </h3>
-                  <p className="text-muted-foreground">
-                    {feature.description}
-                  </p>
-                </div>
-              </motion.div>
-            ))}
-          </div>
-
-          {/* IMAGE */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.4 }}
-            className={`relative ${reverse ? 'lg:order-1' : 'lg:order-2'}`}
-          >
-            {/* Glow */}
-            <div className="absolute -inset-8 bg-primary/10 blur-3xl rounded-3xl -z-10" />
-
-            <OptimizedImage
-              src={section.image}
-              alt="Multicarrier feature preview"
-              aspectRatio="video"
-              className="rounded-2xl shadow-xl"
-            />
-          </motion.div>
-
-        </div>
-      );
-    })}
-
-  </div>
-</section>
-
-
-      {/* Benefits */}
-      <section className="py-24 bg-card/50">
-        <div className="section-container">
-          <div className="grid lg:grid-cols-2 gap-12 items-center">
-            <motion.div
-              initial={{ opacity: 0, x: -20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-            >
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Why Go Multicarrier?
-              </h2>
-              <div className="space-y-4">
-                {[
-                  'Reduce shipping costs by up to 25%',
-                  'Improve delivery times with smart carrier selection',
-                  'Single dashboard for all carrier operations',
-                  'Automated label generation and tracking',
-                  'Real-time rate comparisons',
-                  'No lock-in with any single carrier'
-                ].map((benefit, i) => (
-                  <motion.div
-                    key={benefit}
-                    initial={{ opacity: 0, x: -10 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: i * 0.1 }}
-                    className="flex items-center gap-3"
-                  >
-                    <CheckCircle2 className="w-5 h-5 text-primary flex-shrink-0" />
-                    <span>{benefit}</span>
-                  </motion.div>
-                ))}
-              </div>
-            </motion.div>
+          <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
 
             <motion.div
-              initial={{ opacity: 0, x: 20 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              className="glass-card p-8"
-            >
-              <div className="text-center">
-                <div className="text-5xl font-bold text-primary mb-2">25%</div>
-                <div className="text-muted-foreground mb-6">Average Cost Savings</div>
-                <div className="h-px bg-border my-6" />
-                <div className="grid grid-cols-2 gap-4 text-center">
-                  <div>
-                    <div className="text-2xl font-bold">100+</div>
-                    <div className="text-sm text-muted-foreground">Carriers</div>
-                  </div>
-                  <div>
-                    <div className="text-2xl font-bold">1M+</div>
-                    <div className="text-sm text-muted-foreground">Shipments/Day</div>
-                  </div>
-                </div>
-              </div>
-            </motion.div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA */}
-     <section className="py-24">
-        <div className="section-container">
-          <div className="glass-card relative max-w-4xl mx-auto overflow-hidden rounded-2xl">
-            <img
-              src="/cta.jpg"
-              alt="Delivery Operations"
-              className="absolute inset-0 w-full h-full object-cover opacity-90"
+              className="absolute inset-0 -z-10"
+              style={{
+                background: useTransform(
+                  scrollYProgress,
+                  [0, 1],
+                  [
+                    "radial-gradient(circle at center, hsl(var(--secondary)/0.12), transparent 70%)",
+                    "radial-gradient(circle at center, hsl(var(--primary)/0.12), transparent 70%)",
+                  ]
+                ),
+              }}
             />
-            <div className="absolute inset-0 bg-black/50 backdrop-blur-[1px]" />
-            <div className="relative z-10 text-center px-8 py-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
-                Ready to Transform Your Delivery Operations?
-              </h2>
-              <Button size="lg" onClick={() => setDemoOpen(true)}>
-                Book a Demo
-                <ArrowRight className="ml-2 w-5 h-5" />
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
 
+            {multicarrierFeatures.map((section, index) => {
+              const start = index / totalSteps
+              const end = (index + 1) / totalSteps
+
+              const opacity = useTransform(
+                scrollYProgress,
+                [start, start + 0.1, end - 0.1, end],
+                [0, 1, 1, 0]
+              )
+
+              const y = useTransform(
+                scrollYProgress,
+                [start, end],
+                [60, 0]
+              )
+
+              return (
+                <motion.div
+                  key={section.category}
+                  style={{ opacity, y }}
+                  className="absolute w-full max-w-7xl px-8 grid lg:grid-cols-2 gap-20 items-center"
+                >
+                  <div>
+                    <h2 className="text-4xl font-bold mb-6">
+                      {section.category}
+                    </h2>
+
+                    <p className="text-lg text-muted-foreground mb-10">
+                      {section.description}
+                    </p>
+
+                    <div className="space-y-6">
+                      {section.items.map((feature) => (
+                        <div key={feature.title} className="flex gap-4">
+                          <div className="w-10 h-10 bg-primary/10 text-primary flex items-center justify-center rounded-lg">
+                            <feature.icon className="w-5 h-5" />
+                          </div>
+                          <div>
+                            <h3 className="font-semibold">
+                              {feature.title}
+                            </h3>
+                            <p className="text-sm text-muted-foreground">
+                              {feature.description}
+                            </p>
+                          </div>
+                        </div>
+                      ))}
+                    </div>
+                  </div>
+
+                  <ProductMockup
+                    src={section.image}
+                    alt={section.category}
+                  />
+                </motion.div>
+              )
+            })}
+          </div>
+        </section>
+
+        {/* ================= CTA ================= */}
+        <section className="py-24 text-center bg-gradient-to-r from-primary/10 to-background">
+          <h2 className="text-3xl font-bold mb-6">
+            Reduce Shipping Costs & Increase Delivery Speed with AI
+          </h2>
+
+          <Button size="lg" onClick={() => setDemoOpen(true)}>
+            Schedule Enterprise Demo
+            <ArrowRight className="ml-2 w-5 h-5" />
+          </Button>
+        </section>
+
+      </div>
 
       <BookDemoModal open={demoOpen} onOpenChange={setDemoOpen} />
-    </div>
-  );
+    </>
+  )
 }

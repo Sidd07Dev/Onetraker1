@@ -154,10 +154,10 @@ export default function DeliveryManagement() {
 
   return (
     <>
-      <div className="pt-20">
+      <div >
 
         {/* ================= HERO ================= */}
-        <section className="relative py-24 overflow-hidden">
+        <section className="relative  overflow-hidden">
           <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
           <div className="section-container relative z-10">
             <div className="grid lg:grid-cols-2 gap-12 items-center">
@@ -171,9 +171,9 @@ export default function DeliveryManagement() {
                 </div>
 
                 {/* SEO Optimized H1 */}
-                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-primary">
                   Enterprise{' '}
-                  <span className="text-gradient-primary">
+                  <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">
                     Delivery Management Software
                   </span>{' '}
                   for Modern Logistics

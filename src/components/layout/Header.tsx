@@ -50,7 +50,7 @@ const platformItems = [
     label: 'Optimizer', 
     href: '/platform/optimizer',
     icon: Route,
-    description: 'AI-powered route optimization'
+    description: 'Smart route optimization'
   },
   { 
     label: 'Multicarrier Shipping', 
@@ -215,7 +215,7 @@ export function Header() {
         }`}
       >
         <div className="section-container">
-          <nav className="flex items-center justify-between h-16 lg:h-20">
+         <nav className="flex items-center justify-between h-16 lg:h-20">
             {/* Logo */}
             <Link to="/" className="flex items-center gap-2 group">
               <img src="/logo.png" alt="Onetracker" className="h-6 w-auto" />

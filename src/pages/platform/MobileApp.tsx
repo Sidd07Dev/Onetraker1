@@ -104,10 +104,10 @@ export default function MobileApp() {
 
   return (
     <>
-      <div className="pt-20">
+      <div>
 
         {/* ================= HERO ================= */}
-         <section className="relative py-24 overflow-hidden">
+         <section className="relative  overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-br from-secondary/5 via-transparent to-primary/5" />
         
         <div className="section-container relative z-10">
@@ -121,9 +121,9 @@ export default function MobileApp() {
                 <span className="text-sm font-medium text-secondary">Mobile Solutions</span>
               </div>
               
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6">
+              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-primary">
                 Powerful{' '}
-                <span className="text-gradient-primary">Mobile Apps</span>
+                <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Mobile Apps</span>
                 {' '}for Everyone
               </h1>
               

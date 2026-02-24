@@ -66,27 +66,27 @@ export function HeroSection() {
               {/* LEFT SIDE */}
               <div className="flex-1 min-w-0 max-w-[680px] flex flex-col items-center lg:items-start text-center lg:text-left">
 
-               <motion.h1
-  initial={{ opacity: 0, y: 30 }}
-  animate={{ opacity: 1, y: 0 }}
-  transition={{ duration: 0.8, delay: 0.15 }}
-  className="
+                <motion.h1
+                  initial={{ opacity: 0, y: 30 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.8, delay: 0.15 }}
+                  className="
     text-center lg:text-left
     text-4xl sm:text-5xl lg:text-6xl xl:text-[72px] 2xl:text-[80px]
     font-bold
     leading-tight
     mb-6
   "
->
-  The{" "}
-  <span className="text-gradient-primary">
-    Intelligent
-  </span>{" "}
-  Fulfillment Core{" "}
-  <span className="text-gradient-secondary">
-    for Modern Logistics
-  </span>
-</motion.h1>
+                >
+                  The{" "}
+                  <span className="text-gradient-primary">
+                    Intelligent
+                  </span>{" "}
+                  Fulfillment Core{" "}
+                  <span className="text-gradient-secondary">
+                    for Modern Logistics
+                  </span>
+                </motion.h1>
 
                 <motion.p
                   initial={{ opacity: 0, y: 30 }}

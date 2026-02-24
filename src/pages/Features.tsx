@@ -2,8 +2,8 @@ import {
   motion,
   useScroll,
   useTransform,
-} from "framer-motion";
-import { useState, useRef } from "react";
+} from "framer-motion"
+import { useState, useRef } from "react"
 import {
   Route,
   Clock,
@@ -18,222 +18,223 @@ import {
   Package,
   Truck,
   ArrowRight,
-} from "lucide-react";
-import { BookDemoModal } from "@/components/BookDemoModal";
-import { Button } from "@/components/ui/button";
-import { ProductMockup } from "@/components/ProductMockup";
+} from "lucide-react"
 
-const features = [
+import { OptimizedImage } from "@/components/ui/OptimizedImage"
+import { Link } from "react-router-dom"
+import { BookDemoModal } from "@/components/BookDemoModal"
+import { Button } from "@/components/ui/button"
+import { ProductMockup } from "@/components/ProductMockup"
+
+/* -------------------------------------------------------------------------- */
+/*                          ENTERPRISE LOGISTICS FEATURES                     */
+/* -------------------------------------------------------------------------- */
+
+const platformFeatures = [
   {
     step: "01",
-    category: "Route Optimization",
+    category: "AI Route Optimization Software",
     description:
-      "Optimize delivery routes using artificial intelligence, real-time traffic data, vehicle capacity constraints, and delivery time windows. Reduce fuel consumption, minimize delivery delays, and increase operational efficiency across last-mile logistics networks.",
+      "Optimize delivery routes using artificial intelligence, real-time traffic intelligence, vehicle capacity constraints, and SLA-based delivery time windows to reduce operational costs and improve last-mile efficiency.",
     image: "/RouteOptimization.png",
     items: [
       {
         icon: Route,
         title: "Smart Route Optimization",
         description:
-          "Automatically calculate the most efficient delivery routes based on traffic conditions, distance, and business constraints.",
+          "Automatically calculate optimal delivery routes based on traffic conditions, constraints, and dynamic delivery windows.",
       },
       {
         icon: Clock,
-        title: "Predictive ETA",
+        title: "Predictive ETA Engine",
         description:
-          "Provide accurate delivery time predictions using historical data and real-time route analytics.",
+          "Generate highly accurate delivery time predictions using historical data and real-time routing analytics.",
       },
       {
         icon: Users,
-        title: "Auto Driver Assignment",
+        title: "Automated Driver Assignment",
         description:
-          "Assign drivers dynamically based on proximity, workload, and fleet capacity.",
+          "Assign drivers dynamically based on workload, proximity, and fleet availability.",
       },
     ],
   },
   {
     step: "02",
-    category: "Real-Time Fleet Tracking",
+    category: "Real-Time Fleet Tracking System",
     description:
-      "Gain complete operational visibility with GPS fleet tracking, geofencing, automated dispatching, and centralized control dashboards. Improve delivery accuracy and enhance customer experience with live tracking transparency.",
+      "Gain complete fleet visibility with live GPS tracking, geo-fencing alerts, automated dispatch workflows, and centralized operational dashboards.",
     image: "/LT1.png",
     items: [
       {
         icon: MapPin,
         title: "Live GPS Tracking",
         description:
-          "Monitor vehicle movement in real-time with second-level refresh and geofence alerts.",
+          "Monitor vehicle movement in real-time with second-level refresh and route deviation alerts.",
       },
       {
         icon: Bell,
-        title: "Automated Notifications",
+        title: "Automated Delivery Notifications",
         description:
-          "Send SMS, email, and push notifications for dispatch, delay, and delivery confirmation.",
+          "Send real-time SMS, email, and push notifications for dispatch, delay, and delivery confirmation.",
       },
       {
         icon: Smartphone,
-        title: "Customer Tracking Portal",
+        title: "Branded Customer Tracking Portal",
         description:
-          "Provide customers with branded live tracking pages and delivery updates.",
+          "Provide customers with white-labeled live tracking pages and delivery transparency.",
       },
     ],
   },
   {
     step: "03",
-    category: "Proof of Delivery & Compliance",
+    category: "Digital Proof of Delivery & Compliance",
     description:
-      "Ensure secure and verifiable delivery confirmation with digital signatures, photo capture, OTP verification, and complete audit trails. Maintain compliance and eliminate delivery disputes.",
+      "Secure delivery confirmation with encrypted digital signatures, OTP verification, GPS-tagged photos, and full audit logs to eliminate disputes.",
     image: "/dashboard-proof.png",
     items: [
       {
         icon: Camera,
-        title: "Photo Proof of Delivery",
+        title: "Photo-Based Proof of Delivery",
         description:
-          "Capture timestamped and GPS-tagged images at the point of delivery.",
+          "Capture timestamped and geo-tagged images at the point of delivery.",
       },
       {
         icon: Shield,
-        title: "Digital Signatures",
+        title: "Tamper-Proof Digital Signatures",
         description:
-          "Collect encrypted electronic signatures with tamper-proof records.",
+          "Collect encrypted electronic signatures with immutable audit trails.",
       },
       {
         icon: Package,
-        title: "Multi-Level Verification",
+        title: "Multi-Level Delivery Verification",
         description:
-          "Use OTP, barcode scanning, and validation workflows to prevent fraud.",
+          "Enable OTP validation, barcode scanning, and fraud prevention workflows.",
       },
     ],
   },
   {
     step: "04",
-    category: "Advanced Logistics Analytics",
+    category: "Advanced Logistics Analytics Dashboard",
     description:
-      "Transform operational delivery data into actionable insights using performance dashboards, heatmaps, and fleet efficiency metrics. Make data-driven decisions to scale logistics operations.",
+      "Turn delivery operations into data-driven decisions with executive dashboards, fleet performance analytics, SLA monitoring, and delivery heatmaps.",
     image: "/dashboard-analytics.png",
     items: [
       {
         icon: BarChart3,
         title: "Executive KPI Dashboard",
         description:
-          "Monitor SLA compliance, on-time rate, and fleet utilization in real-time.",
+          "Track SLA compliance, on-time delivery rate, and fleet utilization metrics.",
       },
       {
         icon: Zap,
-        title: "Delivery Heatmaps",
+        title: "Geographic Delivery Heatmaps",
         description:
-          "Analyze geographic performance patterns and delivery density.",
+          "Visualize delivery density and operational performance by region.",
       },
       {
         icon: Truck,
         title: "Fleet Performance Monitoring",
         description:
-          "Track fuel efficiency, driver productivity, and vehicle health.",
+          "Monitor fuel efficiency, driver productivity, and operational cost metrics.",
       },
     ],
   },
-];
+]
 
-export default function Features() {
-  const [demoOpen, setDemoOpen] = useState(false);
-  const containerRef = useRef(null);
+export default function LogisticsFeatures() {
+  const [demoOpen, setDemoOpen] = useState(false)
+  const containerRef = useRef(null)
 
-  const totalSteps = features.length;
-  const dynamicHeight = `${totalSteps * 100}vh`;
+  const totalSteps = platformFeatures.length
+  const dynamicHeight = `${totalSteps * 100}vh`
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
-  });
+  })
 
   return (
     <>
-      <div className="pt-20">
+      <div>
 
-        {/* HERO */}
-      <section className="relative pt-24 pb-16 px-6">
+        {/* ================= HERO ================= */}
+        <section className="relative  overflow-hidden">
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/5 via-transparent to-secondary/5" />
+          <div className="section-container relative z-10">
+            <div className="grid lg:grid-cols-2 gap-12 items-center">
 
-  <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-16 items-center">
+              <div>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 border border-primary/20 mb-6">
+                  <Truck className="w-4 h-4 text-primary" />
+                  <span className="text-sm font-medium text-primary">
+                    Enterprise Logistics Platform
+                  </span>
+                </div>
 
-    {/* LEFT */}
-    <div>
+                <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 text-secondary">
+                  Powerful{' '}
+                  <span className="text-gradient-primary">
+                    Logistics Management Software
+                  </span>{' '}
+                  Built for Scale
+                </h1>
 
-      <div className="inline-flex items-center px-4 py-1.5 rounded-full bg-primary/10 text-primary text-sm font-medium mb-6">
-        Platform Features
-      </div>
+                <p className="text-xl text-muted-foreground mb-8">
+                  From AI-powered route optimization and real-time fleet tracking
+                  to proof of delivery and advanced logistics analytics,
+                  OneTracker equips enterprises with the tools needed to
+                  streamline and scale last-mile delivery operations.
+                </p>
 
-      <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-        Powerful Logistics Features
-        <span className="text-gradient-primary"> Built for Scale</span>
-      </h1>
+                <div className="flex flex-wrap gap-4">
+                  <Button size="lg" onClick={() => setDemoOpen(true)}>
+                    Book Enterprise Demo
+                    <ArrowRight className="ml-2 w-5 h-5" />
+                  </Button>
 
-      <p className="text-muted-foreground text-lg leading-relaxed mb-8 max-w-xl">
-        From AI-powered route optimization and real-time fleet tracking
-        to proof of delivery and advanced logistics analytics,
-        OneTracker equips enterprises with the tools needed to streamline
-        last-mile operations and improve delivery performance.
-      </p>
+                  <Link to="/delivery-management">
+                    <Button size="lg" variant="outline">
+                      Explore Delivery Software
+                    </Button>
+                  </Link>
+                </div>
+              </div>
 
-      <div className="flex gap-4">
-        <Button size="lg">
-          Book Enterprise Demo
-        </Button>
-        <Button variant="outline" size="lg">
-          View Platform Overview
-        </Button>
-      </div>
+              <div>
+                <div className="glass-card p-2 rounded-2xl overflow-hidden">
+                  <OptimizedImage
+                    src="/RouteOptimization.png"
+                    alt="Enterprise logistics management software dashboard"
+                    aspectRatio="video"
+                    className="rounded-xl"
+                  />
+                </div>
+              </div>
 
-    </div>
+            </div>
+          </div>
+        </section>
 
-    {/* RIGHT */}
-    <div className="relative">
-
-      <ProductMockup
-        src="/RouteOptimization.png"
-        alt="AI logistics platform dashboard"
-      />
-
-      {/* Floating Feature Tags */}
-      <div className="absolute -top-6 right-4 glass-card px-4 py-2 text-sm">
-        AI Optimization
-      </div>
-
-      <div className="absolute -bottom-6 left-4 glass-card px-4 py-2 text-sm">
-        Real-Time Tracking
-      </div>
-
-    </div>
-  </div>
-
-  {/* FEATURE NAV STRIP */}
-  <div className="max-w-6xl mx-auto mt-16 grid grid-cols-2 sm:grid-cols-4 gap-6 text-center text-sm text-muted-foreground">
-
-    <div>Route Optimization</div>
-    <div>Fleet Tracking</div>
-    <div>Proof of Delivery</div>
-    <div>Logistics Analytics</div>
-
-  </div>
-
-</section>
-
-        {/* SEO INTRO SECTION */}
-        <section className="max-w-6xl mx-auto px-6 py-16 text-center">
+        {/* ================= SEO BLOCK ================= */}
+        <section className="max-w-5xl mx-auto px-6 py-20 text-center">
           <h2 className="text-3xl font-bold mb-6">
-            Complete End-to-End Logistics Management Platform
+            End-to-End Last-Mile Delivery & Fleet Management System
           </h2>
 
-          <p className="text-muted-foreground max-w-4xl mx-auto leading-relaxed">
-            Designed for third-party logistics providers (3PL), e-commerce companies,
-            distribution centers, and enterprise supply chains, OneTracker centralizes
-            route planning, fleet tracking, proof of delivery, and analytics into a single
-            operational command center.
+          <p className="text-muted-foreground leading-relaxed">
+            Designed for 3PL providers, eCommerce platforms, distribution
+            centers, and enterprise supply chains, our logistics platform
+            centralizes route planning, fleet visibility, digital proof of
+            delivery, and operational analytics into a unified command center.
           </p>
         </section>
 
-        {/* CINEMATIC FEATURES SECTION */}
-        <section ref={containerRef} className="relative" style={{ height: dynamicHeight }}>
-
+        {/* ================= CINEMATIC FEATURES ================= */}
+        <section
+          ref={containerRef}
+          className="relative"
+          style={{ height: dynamicHeight }}
+        >
           <div className="sticky top-0 h-screen flex items-center justify-center overflow-hidden">
 
             <motion.div
@@ -250,21 +251,21 @@ export default function Features() {
               }}
             />
 
-            {features.map((section, index) => {
-              const start = index / totalSteps;
-              const end = (index + 1) / totalSteps;
+            {platformFeatures.map((section, index) => {
+              const start = index / totalSteps
+              const end = (index + 1) / totalSteps
 
               const opacity = useTransform(
                 scrollYProgress,
                 [start, start + 0.1, end - 0.1, end],
                 [0, 1, 1, 0]
-              );
+              )
 
               const y = useTransform(
                 scrollYProgress,
                 [start, end],
                 [60, 0]
-              );
+              )
 
               return (
                 <motion.div
@@ -298,7 +299,6 @@ export default function Features() {
                         </div>
                       ))}
                     </div>
-
                   </div>
 
                   <ProductMockup
@@ -306,19 +306,20 @@ export default function Features() {
                     alt={section.category}
                   />
                 </motion.div>
-              );
+              )
             })}
           </div>
         </section>
 
-        {/* FINAL CTA */}
+        {/* ================= CTA ================= */}
         <section className="py-24 text-center bg-gradient-to-r from-primary/10 to-background">
           <h2 className="text-3xl font-bold mb-6">
             Transform Your Logistics Operations with AI
           </h2>
 
           <Button size="lg" onClick={() => setDemoOpen(true)}>
-            Request a Demo
+            Request Enterprise Demo
+            <ArrowRight className="ml-2 w-5 h-5" />
           </Button>
         </section>
 
@@ -326,5 +327,5 @@ export default function Features() {
 
       <BookDemoModal open={demoOpen} onOpenChange={setDemoOpen} />
     </>
-  );
+  )
 }
